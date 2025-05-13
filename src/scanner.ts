@@ -144,7 +144,7 @@ function datawedge64() {
       RESET_CONFIG: 'true',
       PARAM_LIST: {
         intent_output_enabled: 'true',
-        intent_action: 'com.zebra.reactnativedemo.ACTION',
+        intent_action: 'com.obmin24.ACTION',
         intent_delivery: '2',
       },
     },

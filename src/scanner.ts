@@ -16,10 +16,7 @@ let isSendResult = false;
 export function ScannerInit(profileConfig: ProfileConfigType) {
   currentProfileConfig = profileConfig;
   registerBroadcastReceiver({
-    filterActions: [
-      'com.zebra.reactnativedemo.ACTION',
-      'com.symbol.datawedge.api.RESULT_ACTION',
-    ],
+     filterActions: ['com.obmin24.ACTION', 'com.symbol.datawedge.api.RESULT_ACTION'],
     filterCategories: ['android.intent.category.DEFAULT'],
   });
   sendCommand('com.symbol.datawedge.api.GET_VERSION_INFO', '');
@@ -153,6 +150,21 @@ function datawedge64() {
     },
   };
   sendCommand('com.symbol.datawedge.api.SET_CONFIG', bodyIntent);
+
+  const bodyKeystroke = {
+    PROFILE_NAME: currentProfileConfig?.name,
+    PROFILE_ENABLED: 'true',
+    CONFIG_MODE: 'UPDATE',
+    PLUGIN_CONFIG: {
+      PLUGIN_NAME: 'KEYSTROKE',
+      RESET_CONFIG: 'true',
+      PARAM_LIST: {
+        keystroke_output_enabled: 'false', // Главный параметр
+        keystroke_character_delay: '0'     // Дополнительно
+      }
+    }
+  };
+  sendCommand('com.symbol.datawedge.api.SET_CONFIG', bodyKeystroke);
 
   // NOTE: Give some time for the profile to settle then query its value
   setTimeout(() => {
